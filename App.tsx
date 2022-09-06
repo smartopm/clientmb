@@ -11,12 +11,9 @@ import {
 import { IonIconsPack } from './icons';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DetailsScreen from './DetailsScreen';
-
-const Stack = createNativeStackNavigator();
-
-export const HomeIcon = (props) => <Icon {...props} name="home" />;
+import TabNavigator from './src/screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 const HomeScreen = ({ navigation }) => (
   <Layout style={styles.container}>
@@ -24,26 +21,23 @@ const HomeScreen = ({ navigation }) => (
       <Text>2</Text>
     </Layout>
     <Layout style={styles.layout} level="1">
-      <Button onPress={() => navigation.navigate('Details')}>Go to Details </Button>
+      <Button onPress={() => navigation.navigate('Details')}>
+        Go to Details
+      </Button>
     </Layout>
   </Layout>
 );
 
 export default () => (
-  <NavigationContainer>
-    <IconRegistry icons={[IonIconsPack]} />
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-
-      {/* <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <HomeScreen />
-        <HomeScreen />
-      </Layout> */}
-    </ApplicationProvider>
-  </NavigationContainer>
+  <SafeAreaProvider>
+    <NavigationContainer>
+      <IconRegistry icons={[IonIconsPack]} />
+      {/* <StatusBar /> */}
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <TabNavigator />
+      </ApplicationProvider>
+    </NavigationContainer>
+  </SafeAreaProvider>
 );
 
 const styles = StyleSheet.create({
