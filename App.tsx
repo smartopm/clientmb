@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import * as eva from '@eva-design/eva';
+import {
+  ApplicationProvider,
+  IconRegistry,
+  Layout,
+  Button, Icon
+} from '@ui-kitten/components';
+import { IonIconsPack } from './icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>This is the beginning of our journey</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+export const HomeIcon = (props) => (
+  <Icon {...props} name='home' />
+);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const HomeScreen = () => (
+  <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Button accessoryLeft={HomeIcon}>Home</Button>
+  </Layout>
+);
+
+export default () => (
+  <>
+    <IconRegistry icons={[IonIconsPack]} />
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <HomeScreen />
+    </ApplicationProvider>
+  </>
+);
